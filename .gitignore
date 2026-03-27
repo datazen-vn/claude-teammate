@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.nuxt/
+.output/
+dist/
+*.log
+.DS_Store
+vendor/
+.phpunit.cache
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+*.swp
+*.swo
