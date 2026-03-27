@@ -1,88 +1,88 @@
-# /feature -- Implement Feature (Full Lifecycle)
+# /feature — Triển Khai Feature (Full Lifecycle)
 
-Team Lead. Full lifecycle: Learn -> Advisory -> Decision -> Engineering -> Review -> Ship -> Retrospective.
+Tech Lead. Full lifecycle: Learn → Advisory → Decision → Engineering → Review → Ship → Retrospective.
 
 ## Input
 $ARGUMENTS
 
 ## Phase 0: Learn From Past
 
-**Read `./LESSONS.md` BEFORE doing anything.** Scan lessons from previous features:
-- Any lesson related to this feature?
-- Any process change to apply?
-- Any gotcha to avoid?
+**Đọc `./LESSONS.md` TRƯỚC KHI làm bất kỳ gì.** Scan bài học từ features trước:
+- Có lesson nào liên quan feature này không?
+- Có process change nào cần apply?
+- Có gotcha nào cần tránh?
 
-If LESSONS.md does not exist -> create new with template from handbook.
+Nếu LESSONS.md chưa tồn tại → tạo mới với template từ handbook.
 
 ## Phase 1: Advisory Analysis
 
-Spawn advisory agents **IN PARALLEL** (using web search + codebase scan):
+Spawn advisory agents **SONG SONG** (dùng web search + codebase scan):
 
 **Strategy Analyst:**
-- Evaluate: user value, market context, differentiation, priority, monetization
+- Đánh giá: user value, market context, differentiation, priority, monetization
 - Search competitors, industry trends
 - Output: VALUE rating + DIFFERENTIATION level + RECOMMENDATION
 
 **Legal & Compliance Analyst:**
-- Evaluate: data privacy, platform policies, consent, data retention, regulations
-- Search relevant laws + platform terms
+- Đánh giá: data privacy, platform policies, consent, data retention, regulations
+- Search relevant laws + Meta Platform Terms
 - Output: RISK LEVEL + ISSUES + REQUIRED ACTIONS
 
-**UX Analyst** (if feature has UI):
-- Evaluate: user flow, consistency, edge states, mobile, accessibility
+**UX Analyst** (nếu feature có UI):
+- Đánh giá: user flow, consistency, edge states, mobile, accessibility
 - Output: flow critique + suggestions
 
-Advisory agents message each other if findings are related:
-- Strategy finds competitor approach -> share with Legal to check compliance
-- Legal finds data concern -> share with Strategy to assess impact on user value
+Advisory agents message nhau nếu findings liên quan:
+- Strategy thấy competitor có cách làm hay → share Legal check compliance
+- Legal thấy data concern → share Strategy đánh giá impact lên user value
 
 ## Phase 2: Decision
 
-Lead synthesizes advisory -> decides:
+Lead tổng hợp advisory → quyết định:
 
 ```
-High value + No risk       -> Implement now (Phase 3)
-High value + Legal risk    -> Escalate to Owner with analysis
-Breakthrough potential     -> Escalate to Owner with strategy brief
-Platform policy violation  -> BLOCK -- resolve first
-Low value                  -> Defer or reject -- document reasoning
-Unclear                    -> Spawn more research
+High value + No risk       → Triển khai ngay (Phase 3)
+High value + Legal risk    → Escalate CEO kèm analysis
+Breakthrough potential     → Escalate CEO kèm strategy brief
+Platform policy violation  → BLOCK — resolve trước
+Low value                  → Defer hoặc reject — document reasoning
+Unclear                    → Spawn thêm research
 ```
 
-If implementing -> present with advisory summary to user. Wait for approval.
+Nếu triển khai → present kèm advisory summary cho user. Chờ approve.
 
 ## Phase 3: Technical Planning
 
 1. Scan codebase relevant areas
-2. Break into tasks:
+2. Break thành tasks:
    - Dependency graph
    - Parallel groups (waves)
    - Peer review pairs
    - Handoff points
-3. Present plan to user. Wait for approval.
+3. Present plan cho user. Chờ approve.
 
 ## Phase 4: Engineering Execution
 
-Each wave:
+Mỗi wave:
 1. Spawn engineering teammates
-2. Teammates self-coordinate: code -> self-verify -> peer review -> handoff
-3. Lead only intervenes when conflict/blocked
-4. Wave gate: all tasks DONE -> next wave
+2. Teammates tự phối hợp: code → self-verify → peer review → handoff
+3. Lead chỉ intervene khi conflict/blocked
+4. Wave gate: all tasks DONE → next wave
 
 ## Phase 5: Final Review
 
 1. Engineering: cross-project verify, all tests pass
-2. **Legal Analyst re-review:** data flow implementation correct as analyzed?
-3. **UX Analyst review** (if has UI): output matches recommendations?
-4. **Strategy Analyst confirm:** shipped feature matches scope/value assessed?
+2. **Legal Analyst re-review:** data flow implementation đúng như analyzed?
+3. **UX Analyst review** (nếu có UI): output match recommendations?
+4. **Strategy Analyst confirm:** shipped feature đúng scope/value đã assess?
 
-If review finds issue -> fix loop -> re-review.
+Nếu review phát hiện issue → fix loop → re-review.
 
 ## Phase 6: Ship
 
 Final report:
 ```
-## Feature: [name]
+## Feature: [tên]
 
 ### Advisory Summary
 - Strategy: [value] / [differentiation] / [recommendation]
@@ -95,18 +95,18 @@ Final report:
 - Tests: [status]
 
 ### Post-Launch
-- Legal actions remaining: [list if any]
-- Metrics to track: [from Strategy]
+- Legal actions remaining: [list nếu có]
+- Metrics to track: [từ Strategy]
 - Known limitations: [list]
 - Deploy steps: [instructions]
 ```
 
-## Phase 7: Retrospective (DO NOT SKIP)
+## Phase 7: Retrospective (KHÔNG SKIP)
 
-Collect from teammates + self-review -> append to `./LESSONS.md`:
+Thu thập từ teammates + self-review → append vào `./LESSONS.md`:
 
-1. **Ask teammates** before shutdown: "gotchas? better approach? missing context?"
-2. **Self-review:** planning correct? coordination smooth? quality sufficient? advisory accurate?
-3. **Write LESSONS.md:** went well, went wrong, lesson, process change
-4. **Update handbook** if lesson leads to specific process change
+1. **Hỏi teammates** trước khi shutdown: "gotchas? better approach? missing context?"
+2. **Self-review:** planning đúng? coordination smooth? quality đủ? advisory accurate?
+3. **Ghi LESSONS.md:** went well, went wrong, lesson, process change
+4. **Update handbook** nếu lesson dẫn đến thay đổi quy trình cụ thể
 5. **Report user:** "X lessons learned, Y process changes applied"

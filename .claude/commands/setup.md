@@ -1,6 +1,6 @@
-# /setup -- First-Time Workspace Setup
+# /setup — First-Time Workspace Setup
 
-Team Lead. Run once when starting a new workspace. Auto-detect environment, verify toolchain, configure settings.
+Tech Lead. Chạy 1 lần khi bắt đầu workspace mới. Auto-detect environment, configure MCP, verify toolchain.
 
 ## Input
 $ARGUMENTS
@@ -9,71 +9,70 @@ $ARGUMENTS
 ## Execution
 
 ### Step 1: Detect Projects
-- Scan current directory for projects (package.json, composer.json, Cargo.toml, go.mod, pyproject.toml...)
-- Determine stack for each project (NestJS, Laravel, Next.js, Django, Rails, etc.)
-- Update CLAUDE.md: fill in Projects table, Architecture overview, Code Standards, Verification commands
-- Read CLAUDE.md/README/docs of each project -> extract conventions
+- Scan thư mục hiện tại, tìm projects (package.json, composer.json, Cargo.toml, go.mod...)
+- Xác định stack từng project (NestJS, Laravel, Next.js, etc.)
+- Update CLAUDE.md: điền bảng Projects, Architecture overview, Code Standards, Verification commands
+- Đọc CLAUDE.md/README/docs của từng project → extract conventions
 
 ### Step 2: Configure MCP (.mcp.json)
-Detect and setup MCP servers appropriate for workspace:
+Detect và setup MCP servers phù hợp với workspace:
 
 ```
-If .git exists -> setup GitHub MCP:
+Nếu có .git → setup GitHub MCP:
   - Check: gh auth status (GitHub CLI)
-  - Or: read GITHUB_TOKEN from env
-  - Or: ask user for token once
+  - Hoặc: đọc GITHUB_TOKEN từ env
+  - Hoặc: hỏi user token 1 lần
 
-If database exists (Prisma/TypeORM/Laravel migrations/Django models) -> setup Postgres MCP:
-  - Check: .env files for DB connection strings
-  - Or: docker-compose.yml for DB config
+Nếu có database (Prisma/TypeORM/Laravel migrations) → setup Postgres MCP:
+  - Check: .env files cho DB connection strings
+  - Hoặc: docker-compose.yml cho DB config
 
-If project is complex -> setup Memory MCP:
-  - Persistent knowledge graph for cross-session context
+Nếu project phức tạp → setup Memory MCP:
+  - Persistent knowledge graph cho cross-session context
 
-Always setup Filesystem MCP:
+Luôn setup Filesystem MCP:
   - Root = workspace directory
 ```
 
-Create `.mcp.json` with detected servers. Skip servers not needed.
+Tạo `.mcp.json` với servers detected. Bỏ qua servers không cần.
 
 ### Step 3: Verify Toolchain
-Run checks:
+Chạy checks:
 ```
 - Node.js version
 - npm/pnpm/yarn available
-- PHP/Composer (if Laravel/PHP project)
-- Python/pip (if Python project)
-- Docker (if docker-compose exists)
+- PHP/Composer (nếu Laravel)
+- Docker (nếu có docker-compose)
 - Git configured
-- tmux (for split-pane agent teams)
-- DB connection test (if setup Postgres MCP)
+- tmux (cho split-pane agent teams)
+- DB connection test (nếu setup Postgres MCP)
 ```
 
 ### Step 4: Scan Codebase Conventions
-For each project:
-- Read existing CLAUDE.md in project (if exists)
+Cho mỗi project:
+- Đọc existing CLAUDE.md trong project (nếu có)
 - Scan code patterns: naming, imports, error handling, test framework
-- Record in workspace CLAUDE.md
+- Ghi nhận vào workspace CLAUDE.md
 
 ### Step 5: Verify Agent Team Ready
-- Confirm settings.json has AGENT_TEAMS flag
-- Confirm permissions are sufficient (Bash(*), Read(*), Write(*), Edit(*))
-- Test spawn 1 subagent quickly -> verify working
-- Confirm agents/ directory has subagents
+- Confirm settings.json có AGENT_TEAMS flag
+- Confirm permissions đủ (Bash(*), Read(*), Write(*), Edit(*))
+- Test spawn 1 subagent nhanh → verify hoạt động
+- Confirm agents/ directory có subagents
 
 ### Step 6: Init LESSONS.md
-- Create if does not exist
-- If exists -> read and summarize lessons for user
+- Tạo nếu chưa có
+- Nếu đã có → đọc và summarize lessons cho user
 
 ### Output
 ```
 ## Workspace Setup Complete
 
-Projects: [list with stacks]
+Projects: [list với stack]
 MCP Servers: [list configured]
 Toolchain: [all checks pass/fail]
 Agent Teams: [ready/issues]
 LESSONS.md: [initialized/X existing lessons]
 
-Ready to go. Use /feature, /scan, /review, /debug, /test.
+Ready to go. Dùng /feature, /scan, /review, /debug, /test.
 ```

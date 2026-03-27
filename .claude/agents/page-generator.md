@@ -1,6 +1,6 @@
 ---
 name: page-generator
-description: "Generate complete code for a new page (dashboard, analytics, report). Input: page name + data requirements. Output: full-stack implementation (backend service, controller, routes, frontend layout, page, components). Based on patterns from knowledge/patterns/."
+description: "Sinh toàn bộ code cho 1 dashboard/analytics page mới trong datazen. Input: page name + data requirements. Output: full-stack module (backend service, controller, routes, Vue layout, page, components). Dựa trên patterns đã extract từ CEO Dashboard."
 tools:
   - Read
   - Write
@@ -12,69 +12,110 @@ tools:
 
 # Page Generator Agent
 
-You are a code generator agent. You create new pages based on accumulated patterns.
+Bạn là code generator agent. Bạn tạo dashboard/analytics pages mới dựa trên patterns đã tích lũy.
 
-## Input (from Lead)
+## Input (nhận từ Lead)
 
-- **Page name**: Name of the page (e.g., "Analytics Dashboard", "User Reports")
-- **Data sections**: Sections to display (e.g., "daily activity chart, KPI stats, recent events table")
-- **Data source**: Mock data first or real queries
-- **Access control**: Who can view (admin only, all users, specific roles)
-- **Theme**: Dark or Light
+- **Page name**: Tên page (VD: "Tenant Analytics", "Bot Performance Dashboard")
+- **Data sections**: Các section cần hiển thị (VD: "conversations/day chart, response time stats, satisfaction scores")
+- **Data source**: Mock data first hoặc real queries
+- **Access control**: Ai được xem (CEO only, admin, tenant user)
+- **Theme**: Dark (standalone) hoặc Light (integrated)
 
 ## Process
 
-### Step 1: Read Patterns
+### Step 1: Đọc Patterns
 ```
-Read available patterns:
-- ./knowledge/patterns/ -- find the most relevant pattern
-- If no patterns exist yet, scan existing pages in the codebase
+Đọc các file sau để học conventions:
+- ./knowledge/patterns/dashboard-page.md — Full-stack dashboard pattern
+- ./knowledge/patterns/chart-component.md — Chart patterns
+- ./knowledge/patterns/section-component.md — Section component pattern
 ```
 
 ### Step 2: Scan Existing Code
 ```
-Open 2-3 similar files in current codebase:
-- Find existing pages/dashboards for reference
-- Check routing configuration
-- Check build/bundler configuration
+Mở 2-3 files tương tự trong codebase hiện tại:
+- Modules/CeoDashboard/ (reference implementation)
+- Modules/Core/vite.config.js (alias registration)
+- modules_statuses.json (module activation)
 ```
 
 ### Step 3: Generate Backend
 
-1. **Service** -- method for each data section, wrapper with try-catch, fallback for empty data
-2. **Controller** -- constructor injection, render method
-3. **Routes** -- GET route with middleware
-4. **Middleware** (if needed) -- access control
+1. **Service** (`app/Services/{Name}Service.php`)
+   - Method cho mỗi data section
+   - getDashboardData() wrapper với try-catch
+   - getEmptyDashboardData() fallback
+   - Metric format: `{ value, delta, trend, sparkline?, status? }`
+
+2. **Controller** (`app/Http/Controllers/{Name}Controller.php`)
+   - Constructor injection Service
+   - Single `index()` method → Inertia::render()
+
+3. **Middleware** (`app/Http/Middleware/{Name}AccessMiddleware.php`)
+   - Access control placeholder
+
+4. **Providers** (copy pattern từ CeoDashboard)
+   - ServiceProvider, EventServiceProvider, RouteServiceProvider
+
+5. **Routes** (`routes/central.php`)
+   - GET route with middleware
+
+6. **Config** (module.json, composer.json)
 
 ### Step 4: Generate Frontend
 
-1. **Layout** -- page layout with header, navigation, content slot
-2. **Page** -- full TypeScript interfaces, computed data transforms, responsive grid template
-3. **Components** -- stat cards, charts, tables as needed
-4. **Styles** -- consistent with existing theme
+1. **Layout** (`resources/js/vue/central/layouts/{Name}Layout.vue`)
+   - Dark theme: #070B14 bg, #0A0F1E header
+   - Header: icon + title + live indicator
+   - Slot for content
 
-### Step 5: Register
-- Update route configuration
-- Update any module/plugin registration files
-- Update build configuration if needed
+2. **Page** (`resources/js/vue/central/pages/dashboard/Index.vue`)
+   - Full TypeScript interfaces for all data
+   - Computed: transform data → component props
+   - Template: Section composition with responsive grids
+
+3. **KPI Cards** — Reuse existing KpiStatCard pattern
+   - Props: title, value, format, delta, trend, sparkline, invertDelta
+
+4. **Chart Components** — ApexCharts with dark theme
+   - Each chart = standalone component
+   - Consistent options: transparent bg, dark theme, slate grid
+
+5. **Section Components** — Container with metrics + chart
+   - Primary metrics grid (2-4 cols)
+   - Embedded chart
+   - Optional secondary metrics
+
+6. **Table Components** — If data includes tables
+   - min-w for mobile scroll
+   - Color-coded status badges
+   - Hover effects
+
+### Step 5: Register Module
+- Update `modules_statuses.json`
+- Update `Modules/Core/vite.config.js` — add alias
 
 ### Step 6: Verify
 ```bash
-# Run build to verify no errors
+cd datazen && npm run build
 ```
 
 ## Output
 
-All files ready to use:
+Toàn bộ files ready to use:
 - Build clean
-- Following codebase conventions exactly
-- Theme consistent
-- Responsive
-- TypeScript interfaces complete (if applicable)
+- Theo đúng conventions codebase
+- Dark theme consistent
+- Responsive (mobile-first)
+- TypeScript interfaces complete
 
 ## Quality Checks
-- [ ] Data values have correct format (currency/percent/number)
-- [ ] Components are responsive
-- [ ] All TypeScript interfaces match backend data shape
-- [ ] Route registered correctly
-- [ ] Build passes
+- [ ] Metric values have correct format (currency/percent/number)
+- [ ] Delta colors correct (positive=green, negative=red, inverted where needed)
+- [ ] Tables have min-w for mobile
+- [ ] Charts have consistent dark theme colors
+- [ ] All TypeScript interfaces match service data shape
+- [ ] module.json + composer.json correct
+- [ ] vite alias registered
+- [ ] Route named correctly

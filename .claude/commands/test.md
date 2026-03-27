@@ -1,17 +1,17 @@
-# /test -- Test Suite
+# /test — Test Suite
 
-Team Lead. Spawn test team. Testers cover each layer, share test fixtures + edge cases with each other.
+Tech Lead. Spawn test team. Testers cover từng layer, share test fixtures + edge cases với nhau.
 
 ## Input
 $ARGUMENTS
 
 ## Execution
-1. Determine scope -> spawn testers by layer (unit / integration / API / E2E)
+1. Xác định scope → spawn testers theo layer (unit / integration / API / E2E)
 2. Testers:
-   - Follow existing test patterns in codebase
-   - **Share edge cases:** "found boundary case X, have you covered it?"
-   - **Share fixtures:** "created mock data at path Y, use it"
-3. Lead aggregates results:
+   - Follow existing test patterns trong codebase
+   - **Share edge cases:** "found boundary case X, bạn cover chưa?"
+   - **Share fixtures:** "tạo mock data ở path Y, dùng chung"
+3. Lead aggregate results:
 ```
 Total: X | Pass: Y | Fail: Z
 Issues: [list with severity]
