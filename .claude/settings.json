@@ -7,13 +7,29 @@
     "MCP_TOOL_TIMEOUT": "60000"
   },
   "permissions": {
+    "defaultMode": "bypassPermissions",
     "allow": [
       "Bash(*)",
       "Read(*)",
       "Write(*)",
       "Edit(*)",
       "WebSearch(*)",
-      "WebFetch(*)"
+      "WebFetch(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "Agent(*)",
+      "SendMessage(*)",
+      "TaskCreate(*)",
+      "TaskUpdate(*)",
+      "NotebookEdit(*)"
+    ],
+    "additionalDirectories": [
+      "/home/thanhlc/assets/git/claude-teammate/chatbot-nestjs",
+      "/home/thanhlc/assets/git/claude-teammate/datazen"
     ]
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
   }
 }

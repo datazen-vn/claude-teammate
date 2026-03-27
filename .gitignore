@@ -1,38 +1,22 @@
-# Projects (separate git repos)
-chatbot-nestjs/
-datazen/
-ceo-dashboard/
-_CeoDashboard_backup/
-
-# Screenshots
-*.png
-
-# Env
 .env
 .env.*
 !.env.example
-
-# Dependencies & build
 node_modules/
 .nuxt/
 .output/
 dist/
+*.log
+.DS_Store
 vendor/
 .phpunit.cache
 __pycache__/
 *.pyc
-
-# IDE & OS
 .vscode/
 .idea/
 *.swp
 *.swo
-.DS_Store
-*.log
 
-# Playwright
-.playwright-mcp/
-
-# Misc
-setup-teamlead.sh
-README-workspace.md
+# Projects — separate git repos, commit/push independently
+chatbot-nestjs/
+datazen/
+ceo-dashboard/
