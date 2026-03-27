@@ -36,6 +36,7 @@ Architecture decisions with reasoning, so the team does not re-debate settled qu
 | File | Description |
 |------|-------------|
 | multi-tenant-realtime-bridge.md | Why Redis Pub/Sub → Laravel Reverb bridge for real-time (vs direct WS) |
+| message-management-deploy-checklist.md | Full deploy checklist: migrations, daemon, smoke tests, rollback |
 
 **How to add:** When making a significant architecture decision, document the options considered,
 tradeoffs evaluated, and reasoning for the final choice.
