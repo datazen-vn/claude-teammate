@@ -151,3 +151,32 @@ CLAUDE.md had placeholder "example-api" and "example-web" — every teammate had
 - Patterns extracted: 3 (inbox-realtime, laravel-proxy, nestjs-crud)
 - Generators upgraded: 2 (page-generator, crud-generator)
 - Research cached: 5 (competitor, UX audit, AI copilot, feature branches, platform gaps)
+
+---
+
+## 2026-03-27 — CRITICAL: Merge Conflict in Production + Half-baked Features
+
+### Went Wrong
+- **Merge conflict marker left in production code** — `SubscriptionActivationService.php:202` had `<<<<<<< HEAD` causing 500 error on app-store page. Deployed to production without catching it.
+- **Features "nửa nạc nửa mỡ"** — Knowledge Hub and Quota Dashboard shipped with mock data, reported as "done" but not actually usable. Owner rightfully called this out.
+- **Wrong naming** — Called feature "AI Copilot" instead of "Zen AI" (Datazen's brand). Should have asked or checked branding first.
+- **Report too early** — Claimed "ALL DEPLOYED" before verifying features actually work on production.
+
+### Root Cause
+- No PHP syntax check before pushing — agents committed code without running `php -l`
+- No merge conflict scan before pushing — `grep '<<<<<<' *.php` should be standard
+- Mock data treated as acceptable — it's NOT for production features
+- Naming assumed without checking with Owner
+
+### Lesson
+- **ALWAYS run `php -l` on changed PHP files before committing** — syntax errors break production
+- **ALWAYS grep for `<<<<<<` before pushing** — merge conflicts are silent killers
+- **Mock data = NOT DONE** — feature is only "done" when it shows REAL data on production
+- **Check branding/naming with Owner** — don't assume names for user-facing features
+- **Don't report "shipped" until verified working** — open the page yourself, see it work
+
+### Process Change
+- Add pre-push checks: `grep -r "<<<<<<" --include="*.php" && find . -name "*.php" -exec php -l {} \;`
+- Feature "done" definition: real data + works on production + no errors + Owner verified
+- AI feature name: **Zen AI** (not Copilot, not AI Assistant)
+- Every feature must have real API connection before reporting done
