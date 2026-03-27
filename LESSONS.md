@@ -107,3 +107,47 @@ CLAUDE.md had placeholder "example-api" and "example-web" — every teammate had
 - Teammates start with full architecture context — no re-scanning needed
 - Faster feature delivery — teammates understand patterns before coding
 - Better code quality — teammates follow documented conventions instead of guessing
+
+---
+
+## 2026-03-27 — Message Management Inbox Ship (Session 2)
+
+### Went Well
+- Massive parallel spawning: 15+ teammates across 3 waves — all features + review + tests + fixes completed in one session
+- 2-round code review caught 40 issues including 3 P0 security bugs (IDOR, privacy leak, input validation)
+- Advisory agents (UX + Strategy) ran parallel to engineering — insights guided feature priority
+- Knowledge extraction while waiting: 3 patterns, 1 decision, 5 research caches, 2 generator upgrades
+- Small features auto-implemented (mark all read, sorting, scroll button, toasts) — high user value, low effort
+- Platform-wide UX scan found 20+ dark mode fixes and empty state gaps across 241 pages
+
+### Went Wrong
+- API 529/timeout hit 5 times — had to respawn with Sonnet as fallback
+- claude-teammate rebase conflict due to parallel sessions on different machines — lost some LESSONS.md content
+- Scanner-datazen (full architecture) timed out — had to use focused scan instead
+- Some teammates committed on wrong branch initially (stash dance needed)
+
+### Lesson
+- **Sonnet as fallback**: When Opus agents timeout/529, immediately respawn with Sonnet — it's reliable and fast enough for most tasks
+- **Focused scans > full scans**: Don't scan entire codebase in one agent — split by module (max 5-10 files per scan)
+- **Rebase conflicts across sessions**: Always `git pull --rebase` BEFORE starting work on claude-teammate repo
+- **Auto-implement small features**: Owner confirmed Lead should auto-ship small features without asking — reduces back-and-forth, increases velocity
+- **Platform-wide scans during wait**: Scanning all 241 pages found cross-cutting issues (dark mode, empty states) — fix once, improve everywhere
+- **AI Copilot is next breakthrough**: Research shows sidebar pattern + streaming + RAG is the architecture. All building blocks exist in codebase.
+
+### Process Change
+- When Opus times out → immediately retry with Sonnet (don't retry Opus)
+- Split large codebase scans into <50 file focused scans
+- Auto-implement any feature under 2 days effort that clearly benefits users
+- Run platform-wide UX scan after every major feature to catch cross-cutting gaps
+- Cache ALL research (competitor, UX audit, implementation brief) — never re-research
+
+### Velocity Tracking
+- Feature: Message Management Inbox (completion + polish + deploy)
+- Time: 1 session (~3 hours of agent work)
+- Generator used: None (baseline — generators upgraded this session for next time)
+- Manual code: 100%
+- Teammates spawned: 15+
+- Tasks completed: 13 formal tasks + 6 ad-hoc improvements
+- Patterns extracted: 3 (inbox-realtime, laravel-proxy, nestjs-crud)
+- Generators upgraded: 2 (page-generator, crud-generator)
+- Research cached: 5 (competitor, UX audit, AI copilot, feature branches, platform gaps)
