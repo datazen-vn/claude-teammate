@@ -1,68 +1,52 @@
 # Progress Dashboard
-Last updated: 2026-03-27
+Last updated: 2026-03-27 (end of Session 2)
 
 ## Active Now
-Message Management SHIPPED. Working on remaining P2 fixes + next small features.
+NestJS test fixes running. All datazen features shipped + pushed.
 
 ---
 
-## chatbot-nestjs (NestJS Backend)
-[xxxxxxxxxx] 100%
+## chatbot-nestjs
+[xxxxxxxxx.] 95%
+
+### Active
+- IN-PROGRESS: Fix 210+ DI mock test failures
 
 ### Pending Production
 - QUEUED: Run SQL migrations on tenant DBs (cb_canned_responses + cb_conversation_notes)
 
 ### Done
-- DONE: All message management APIs merged to main
-- DONE: Canned responses, conversation notes, inbox, message-persist
-- DONE: Auto-release, data retention, real-time Pub/Sub
+- DONE: All message management APIs on main
+- DONE: 1886/2134 tests passing (88%), fixing remaining
 
 ---
 
-## datazen (Laravel + Vue Frontend)
-[xxxxxxxxxx] 100% — MERGED TO MAIN
+## datazen
+[xxxxxxxxxx] 100% — ALL PUSHED TO MAIN
+
+### Shipped This Session
+- DONE: Message Management Inbox (full feature)
+- DONE: All P0/P1/P2 security + UX fixes (40 findings resolved)
+- DONE: Transfer dialog, customer sidebar, Zalo, typing, retry
+- DONE: Mark all read, sorting, scroll button, toasts, empty states
+- DONE: 100 E2E test cases
+- DONE: Dark mode fixes (8 pages), error handling (2 pages), polling (1 page)
 
 ### Pending Production
-- QUEUED: `php artisan migrate` (add Inbox menu item)
-- QUEUED: Start `php artisan chatbot:message-subscribe` daemon (supervisor)
-- QUEUED: Smoke test production (checklist at knowledge/decisions/)
-
-### Shipped (this session)
-- DONE: Vue Inbox 2-panel layout + conversation list + filters + messages
-- DONE: Send message + takeover/release/transfer (staff dropdown)
-- DONE: Canned responses + conversation notes + customer sidebar
-- DONE: Zalo OA platform + typing indicator + message retry
-- DONE: Real-time WebSocket + polling fallback + notifications
-- DONE: UX polish (scroll button, toasts, lazy images, empty states)
-- DONE: ARIA accessibility + keyboard navigation
-- DONE: E2E tests (100 test cases)
-- DONE: Security fixes (IDOR, privacy, validation)
-- DONE: 2x code review (40 findings, all P0/P1 fixed)
-- DONE: Merged to main + pushed
+- QUEUED: `php artisan migrate` + daemon + tenant DB migrations + smoke test
 
 ---
 
-## Teammates Active
-
-| Name | Role | Project | Status | Current Task |
-|------|------|---------|--------|-------------|
-| _None_ | — | — | — | Between waves |
-
-## Blockers
-None
-
-## Recent Decisions
-
-| When | Decision | Reasoning |
-|------|----------|-----------|
-| 2026-03-27 | Merge message-management to main | All P0/P1 fixed, 100 E2E tests, 2 reviews passed |
-| 2026-03-27 | Don't merge stale branches | Owner: dead code, will break logic |
-| 2026-03-27 | Small features auto-implement | Owner: Lead decides small features autonomously |
+## Next Session Priorities
+1. Deploy production + smoke test
+2. AI Copilot (research cached, architecture designed)
+3. NestJS test pass rate → 95%+
+4. Platform empty states (~65 DzDataView pages)
+5. Component splitting (Inbox 1500+ lines → sub-components)
 
 ---
 
 ## Recovery Info
-- **Identity**: I am Team Lead. I coordinate, not code. Teammates code. I review.
-- **Feature shipped**: Message Management Inbox (merged to main)
-- **Current phase**: Post-ship — remaining P2 fixes + next features
-- **Process**: Read CLAUDE.md -> Read LESSONS.md -> Check PROGRESS.md -> Spawn teammates
+- **Identity**: I am Team Lead. I coordinate, not code.
+- **Shipped**: Message Management Inbox (on main)
+- **Next**: AI Copilot (see knowledge/research-cache/ai-copilot-implementation-brief-2026-03.md)
