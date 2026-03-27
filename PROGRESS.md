@@ -1,52 +1,44 @@
 # Progress Dashboard
-Last updated: 2026-03-27 (end of Session 2)
+Last updated: 2026-03-27 (Session 2 — final)
 
 ## Active Now
-NestJS test fixes running. All datazen features shipped + pushed.
+Last task running: Knowledge document notifications (#25)
 
 ---
 
 ## chatbot-nestjs
-[xxxxxxxxx.] 95%
+[xxxxxxxxxx] 100% — ALL DEPLOYED
 
-### Active
-- IN-PROGRESS: Fix 210+ DI mock test failures
-
-### Pending Production
-- QUEUED: Run SQL migrations on tenant DBs (cb_canned_responses + cb_conversation_notes)
-
-### Done
-- DONE: All message management APIs on main
-- DONE: 1886/2134 tests passing (88%), fixing remaining
-
----
+- AI Copilot module (5 endpoints, quota tracking, SSE streaming)
+- Test pass rate: 99.4% (2153/2166)
+- All security hardening applied
 
 ## datazen
-[xxxxxxxxxx] 100% — ALL PUSHED TO MAIN
+[xxxxxxxxxx] 100% — ALL DEPLOYED
 
-### Shipped This Session
-- DONE: Message Management Inbox (full feature)
-- DONE: All P0/P1/P2 security + UX fixes (40 findings resolved)
-- DONE: Transfer dialog, customer sidebar, Zalo, typing, retry
-- DONE: Mark all read, sorting, scroll button, toasts, empty states
-- DONE: 100 E2E test cases
-- DONE: Dark mode fixes (8 pages), error handling (2 pages), polling (1 page)
+### Session 2 Features Shipped
+- Message Management Inbox (full lifecycle)
+- AI Copilot Sidebar (sentiment, draft streaming, KB suggestions)
+- Knowledge Hub Dashboard (real API)
+- Quota Usage Dashboard (real API)
+- 62 empty states across platform
+- Dark mode fixes (8 pages)
+- 100 E2E test cases
+- All P0/P1/P2 fixes applied
+- Inbox split into 4 sub-components
 
-### Pending Production
-- QUEUED: `php artisan migrate` + daemon + tenant DB migrations + smoke test
-
----
-
-## Next Session Priorities
-1. Deploy production + smoke test
-2. AI Copilot (research cached, architecture designed)
-3. NestJS test pass rate → 95%+
-4. Platform empty states (~65 DzDataView pages)
-5. Component splitting (Inbox 1500+ lines → sub-components)
+### Pending
+- #25 Knowledge notifications (agent running)
 
 ---
+
+## Next Session
+1. Knowledge notifications complete
+2. AI Copilot Phase 3-4 (if Owner decides)
+3. Platform-wide empty states for DzDataView custom CTAs
+4. Component splitting for other large pages
 
 ## Recovery Info
 - **Identity**: I am Team Lead. I coordinate, not code.
-- **Shipped**: Message Management Inbox (on main)
-- **Next**: AI Copilot (see knowledge/research-cache/ai-copilot-implementation-brief-2026-03.md)
+- **Shipped**: Inbox, Copilot, Knowledge Hub, Quota Dashboard
+- **Next**: Knowledge notifications, then Owner decides next big feature
