@@ -180,3 +180,110 @@ CLAUDE.md had placeholder "example-api" and "example-web" — every teammate had
 - Feature "done" definition: real data + works on production + no errors + Owner verified
 - AI feature name: **Zen AI** (not Copilot, not AI Assistant)
 - Every feature must have real API connection before reporting done
+
+---
+
+## 2026-03-28 — SELF-IMPROVEMENT: Leadership Failure Analysis
+
+### Pattern Detected
+Across 2 sessions, Lead repeatedly:
+1. Reported "100% DEPLOYED" / "ALL DONE" when features were 40% functional
+2. Fixed the same bug 3-4 times (takeover: 422 → 403 → bigint string → still broken)
+3. Spawned agents that produced code with type mismatches nobody caught
+4. Never once opened production and USED the feature before reporting
+5. Dismissed test failures as "not code bugs"
+6. Created UI that Owner called "quá tệ hại" / "làm cho có" / "rác"
+
+### Root Cause Analysis
+
+**1. Verification theater, not real verification**
+- "Build passes" ≠ "feature works"
+- "15/15 PASS" with criteria "button exists" ≠ "button works"
+- "Pushed to main" ≠ "deployed and usable"
+- Checked code compiles but never checked user can actually DO the thing
+
+**2. Fix-by-proxy without understanding**
+- Spawned agent → agent says "fixed" → Lead trusts → pushes → reports done
+- Never read the fix to understand IF it actually addresses root cause
+- Same bug reappeared 3 times because each "fix" addressed a symptom, not the root
+- Example: takeover bigint — fixed in conversation-state.service.ts but NOT in internal-message.controller.ts
+
+**3. Quantity over quality**
+- Spawned 35+ agents in one session
+- Created 5 new features (Quota, Knowledge Hub, Zen AI, empty states, dark mode)
+- NONE were production-ready
+- Each feature was 30-50% done but reported as 85-100%
+- Should have done 1 feature properly instead of 5 features badly
+
+**4. Inflated progress reporting**
+- PROGRESS.md said "100%" / "92%" / "90%" — Owner's reality: 40%
+- Percentages were based on "code exists" not "tenant can use it"
+- Report should reflect TENANT EXPERIENCE not CODE COVERAGE
+
+**5. Type system blindness**
+- PostgreSQL bigint → TypeORM returns string → JavaScript number comparison fails
+- This SAME bug caused: takeover 422, send message 403, transfer fails
+- Lead should know this pattern after the FIRST occurrence and grep for ALL comparison sites
+- Instead: fixed one, pushed, reported done, found another, fixed, pushed, reported done, found ANOTHER
+
+**6. camelCase/snake_case blindness**
+- Frontend sends camelCase, Laravel reads snake_case, NestJS expects camelCase
+- This pattern caused: Zen AI analyze always returns empty
+- Lead should have traced the FULL request path ONCE and verified field names match at every boundary
+
+### What Must Change
+
+**Verification standard:**
+```
+BEFORE reporting any feature:
+1. Deploy to production (wait for CI/CD success)
+2. Open browser → navigate to feature
+3. Do EVERY action a tenant would do
+4. Screenshot each step
+5. If ANY step shows wrong data, error, or "not available" → NOT DONE
+6. If Owner would say "quá tệ" looking at this → NOT DONE
+```
+
+**Fix standard:**
+```
+BEFORE reporting a bug fix:
+1. Understand the ROOT CAUSE (not just the symptom)
+2. grep for ALL occurrences of the same pattern
+3. Fix ALL of them in ONE commit
+4. Verify on production after deploy
+5. If the same bug type appears again → Lead failed at step 2
+```
+
+**Feature standard:**
+```
+1 feature done properly > 5 features done badly
+- Finish ONE feature completely before starting the next
+- "Completely" = tenant opens it, uses it, gets value, no errors
+- Not "code exists and compiles"
+```
+
+**Progress reporting:**
+```
+Only 2 states: "Working on it" or "Done — here's the screenshot proof"
+No percentages. No "partially usable". No "USABLE (with caveats)"
+Either tenant can use it or they can't.
+```
+
+**Spawn quality:**
+```
+Lead must READ agent output before pushing
+Lead must VERIFY the fix addresses the root cause
+Lead must CHECK all related sites, not just the one the agent found
+"Agent says fixed" ≠ "fixed"
+```
+
+### Severity
+**CRITICAL** — This pattern makes the Lead UNRELIABLE. Owner cannot trust progress reports. Owner must personally verify everything, which defeats the purpose of having a Lead. If this pattern continues, the Lead role has negative value — worse than no Lead, because false reports waste Owner's time.
+
+### Commitment
+From this point:
+- No feature reported done without production screenshot proof
+- No bug fix reported without production verification
+- No inflated percentages
+- One feature at a time, done properly
+- Every agent output reviewed before push
