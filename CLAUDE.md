@@ -134,6 +134,9 @@ Workflow:
 - **Naming**: camelCase methods, PascalCase classes, UPPER_CASE constants. Files: kebab-case (entity.service.ts)
 - **DB timestamps**: bigint epoch ms (Date.now()), NOT Date objects
 - **Soft delete**: Manual deleted_at column, NOT TypeORM @DeleteDateColumn
+- **CRITICAL — bigint comparison**: PostgreSQL bigint columns return as STRINGS from TypeORM. ALWAYS use `Number()` when comparing: `Number(conv.assignedStaffId) !== Number(body.staffId)`. Raw `===` or `!==` will FAIL silently.
+- **CRITICAL — forbidNonWhitelisted**: NestJS ValidationPipe rejects ANY field not in the DTO. When adding fields to API calls, ALWAYS add to the DTO too (with @IsOptional if not required).
+- **staffId type**: Laravel sends `(int) auth()->id()`. NestJS DTO has `@IsNumber()`. NEVER cast to `(string)` — NestJS rejects strings for @IsNumber fields.
 
 ### datazen
 - **Package Manager**: composer (PHP) + npm (frontend)
@@ -145,6 +148,10 @@ Workflow:
 - **Icons**: Phosphor Icons (PhosphorVue)
 - **Build**: Vite
 - **Pattern**: Controller → Service → Model. Inertia::render for pages. JSON API endpoints for client-side fetching
+- **CRITICAL — Inertia rootView**: All `Inertia::render()` calls MUST chain `->rootView('core::vue.app')`. Without it: "View [app] not found" 500 error.
+- **CRITICAL — camelCase/snake_case**: Frontend `fetch()` sends camelCase. Laravel reads snake_case (`$request->input('last_user_message')`). ConvertCase middleware converts. For manual `fetch()` (not Axios), send snake_case explicitly.
+- **Sidebar menu items**: Added via `SbMenu::create()` migration with `sb_app_id`, `route`, `icon`, `additional_data => ['page_type' => 'custom']`. Chatbot app ID = 2.
+- **Chatbot workspace routes**: `{subscription}/app/chatbot/...` with `BindSubscriptionContext` middleware + UUID where constraint.
 
 ## Verification
 
